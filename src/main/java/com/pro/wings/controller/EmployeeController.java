@@ -42,4 +42,15 @@ public class EmployeeController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping(value = "/GetAll", method = RequestMethod.GET)
+	public ModelAndView getAllEmployee() {
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("welcome");
+		
+		String res = service.getAllEmployee().toString();
+		
+		return mv;
+	}
 }

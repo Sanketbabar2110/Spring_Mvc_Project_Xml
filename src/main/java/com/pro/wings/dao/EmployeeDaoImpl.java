@@ -1,5 +1,7 @@
 package com.pro.wings.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -35,6 +37,28 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			return false;
 			
 		} finally {
+			session.close();
+		}
+	}
+
+	@Override
+	public List<Employee> getAllEmployee() {
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = factory.openSession();
+			tx = session.beginTransaction();
+
+			return session.createQuery("From Employee").list();
+					
+		} catch (Exception e) {
+			
+			System.out.println("Failed to insert/create Employee!!!");
+			e.printStackTrace();
+			return null;
+			
+		} finally {
+			tx.commit();
 			session.close();
 		}
 	}
